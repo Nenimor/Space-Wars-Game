@@ -1,0 +1,83 @@
+ronenmor
+
+yoavhalevi
+
+=====================================================
+===================Description=======================
+=====================================================
+
+This program is a spaceships game with several functionalities. The general purpose of the game is to
+damage other spaceship, and avoid from getting damaged by them.
+For further information and game's rules, please visit ex2.pdf.
+
+
+The game contains several files:
+#SpaceShipFactory - a factory class that constructs an array of the requested spaceships.
+#SpaceWars - This class runs and manages the Space Wars game.
+#SpaceShip - a father base class of all spaceships types in the game.
+    SpaceShip subclasses:
+    #Humanship - a class that represents a Human controlled type spaceship.
+    #AggresiveShip - a class that represents an aggressive type spaceship.
+    #BasherShip - a class that represents a basher type spaceship.
+    #DrunkardShip - a class that represents a drunkard type spaceship.
+    #SpecialShip - a class that represents a special type spaceship.
+
+
+=====================================================
+======================Design=========================
+=====================================================
+
+The Design of the game is pretty simple-
+The father base class 'SpaceShip' contains all necessary actions of a ship:
+'fire'- method that executes a shot under basic conditions.
+'teleport' - method that executes a teleport under basic conditions
+'reset' - method that resets the ship in case of death.
+'shieldOn' - method that turns the shield on under basic conditions
+'doAction' - method that runs all ship's actions in a single round- movement, fire, teleport, and shield.
+this method also raises the fire cool down variable(shotAvailable) by one by calling the method
+'shotTurnWait', and regenerate the spaceship energy at the end of the round by calling 'energyRegeneration'.
+
+All other spaceship types has private inner methods of their actions- movement, fire, teleport and shield.
+Those inner methods make use of the 'SpaceShip' class original methods under extended conditions- each
+spaceship type and its conditions. For example, the human spaceship has a method called 'humanFire' which
+calls the 'SpaceShip' class' method 'fire' if the key 'd' was pressed.
+
+The method 'doAction' which manages a single round, and being called in the game manager- 'SpaceWars', is
+overridden in all different spaceship classes. This method calls in each class for the relevant inner
+private methods, according to each spaceship's behavior as described in ex2.pdf.
+
+The reason I chose this kind of design is that it allows the user to create new types of spaceships based
+on the father class 'SpaceShip'. All necessary actions of a ship are already implemented, and the user can
+easily implement new types of spaceships by creating inner methods which call the original methods under
+some conditions- according to the behavior desired to be given to the new type of spaceship.
+
+More about the pick of the design:
+#Extensibility - like I explained above, the user can easily create new types of spaceships with minimal
+code writing. In addition, I defined many constant static variables which allows the user to change the
+game rules if desired. For example- changing the energy cost of executing teleport.
+#Modularity - This kind of design allowed me to divide the implementation into minimal methods, which
+makes the code readable and really easy to be modified.
+@ Intuitiveness and understandability - as explained above, the division of the code into minimal methods
+makes the code readable and understandable.
+
+
+Design of the Drunkard ship:
+The drunkard ship always accelerates, as a proper drunk driver would act, and randomizes the direction
+of a turn with some tendency to the left- right turn will be executed in a chance of 30%, left turn in a
+chance of 60%, and straight in a chance of 10%. The drunkard ship executes a teleport in a chance of 1/200,
+and fires in a chance of 1/30. The drunkard ship has no ability to raise a shield up.
+
+Design of the Special Ship:
+The Special ship is a really dangerous ship. This ship always has its shield up, giving it a big advantage
+over other spaceships in the fight. The ship always accelerates, and turning towards the nearest ship in
+purpose of colliding with it. The special ship always tries to execute a shot with NO energy cost.
+
+=====================================================
+==============Implementation Issues==================
+=====================================================
+
+
+
+=====================================================
+================Answers to Questions=================
+=====================================================
